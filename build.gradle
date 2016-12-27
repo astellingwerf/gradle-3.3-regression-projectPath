@@ -1,0 +1,32 @@
+apply plugin: 'base'
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '3.3-rc-1' //BROKEN
+//	gradleVersion = '3.2.1' // WORKING
+}
+
+apply plugin: 'java'
+defaultTasks 'ldif'
+
+task ldif {
+	doLast {
+		project.mkdir("$buildDir/ldif")
+		def cmd = [
+			"-PprojectPath=$projectDir",
+			"-ProotPath=$rootProject.projectDir",
+			"-b",
+			"${rootProject.projectDir}/ldif.gradle",
+			"ldif"
+		]
+		forkGradle(cmd)
+	}
+}
+	
+ext.forkGradle = { List forkArgs ->
+	println forkArgs
+	javaexec {
+		classpath "${rootProject.projectDir}/gradle/wrapper/gradle-wrapper.jar"
+		main = 'org.gradle.wrapper.GradleWrapperMain'
+		args (['--no-daemon'] + forkArgs)
+	}
+}
