@@ -1,7 +1,5 @@
 defaultTasks 'ldif'
 
 task ldif {
-	println rootPath
-	println projectPath
 	assert rootPath == projectPath
 }

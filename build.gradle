@@ -10,10 +10,10 @@ defaultTasks 'ldif'
 
 task ldif {
 	doLast {
-		project.mkdir("$buildDir/ldif")
+		def value = 'ABCDEFG'
 		def cmd = [
-			"-PprojectPath=$projectDir",
-			"-ProotPath=$rootProject.projectDir",
+			"-PprojectPath=${value}",
+			"-ProotPath=${value}",
 			"-b",
 			"${rootProject.projectDir}/ldif.gradle",
 			"ldif"
