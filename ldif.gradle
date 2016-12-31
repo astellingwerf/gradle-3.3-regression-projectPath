@@ -1,5 +1,5 @@
 defaultTasks 'ldif'
 
 task ldif {
-	assert rootPath == projectPath
+	assert rootPath == project.property('projectPath') & rootPath == projectPath
 }
